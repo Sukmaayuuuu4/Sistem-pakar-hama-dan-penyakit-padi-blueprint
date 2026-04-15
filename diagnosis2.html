@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnosa Penyakit Padi</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    margin: 0;
+    background: #f0f2f5;
+}
+
+/* HEADER */
+.header {
+    background: #2e7d32;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* CONTAINER */
+.container {
+    max-width: 500px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* TITLE */
+h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+/* GEJALA LIST */
+.gejala {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.gejala label {
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.gejala label:hover {
+    background: #e8f5e9;
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border: none;
+    background: #2e7d32;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1b5e20;
+}
+
+/* HASIL */
+#hasil {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #e8f5e9;
+    display: none;
+}
+
+/* MOBILE */
+@media (max-width: 500px) {
+    .container {
+        margin: 10px;
+        padding: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    Sistem Pakar Diagnosis Padi
+</div>
+
+<div class="container">
+    <h2>Pilih Gejala</h2>
+
+    <form id="formDiagnosa">
+        <div class="gejala">
+
+            <label><input type="checkbox" value="G01"> Pertumbuhan terhambat</label>
+            <label><input type="checkbox" value="G02"> Tepi daun tidak rata</label>
+            <label><input type="checkbox" value="G03"> Bercak daun lonjong coklat</label>
+            <label><input type="checkbox" value="G04"> Bintik coklat/ungu</label>
+            <label><input type="checkbox" value="G05"> Daun abu-abu lalu kering</label>
+            <label><input type="checkbox" value="G06"> Gabah hampa</label>
+            <label><input type="checkbox" value="G07"> Batang patah</label>
+            <label><input type="checkbox" value="G08"> Bercak kecoklatan</label>
+            <label><input type="checkbox" value="G09"> Bercak belah ketupat</label>
+            <label><input type="checkbox" value="G10"> Tanaman kering</label>
+            <label><input type="checkbox" value="G11"> Daun kuning oranye</label>
+            <label><input type="checkbox" value="G12"> Tanaman kerdil</label>
+
+        </div>
+
+        <button type="button" onclick="diagnosa()">Diagnosa</button>
+    </form>
+
+    <div id="hasil"></div>
+</div>
+
+<script>
+function diagnosa() {
+    let gejalaDipilih = [];
+    let checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+
+    checkboxes.forEach(cb => {
+        gejalaDipilih.push(cb.value);
+    });
+
+    let hasil = "";
+    let solusi = "";
+
+    if (gejalaDipilih.includes("G01") && gejalaDipilih.includes("G02")) {
+        hasil = "Penyakit Kerdil";
+        solusi = "Gunakan varietas tahan dan kendalikan hama.";
+    }
+    else if (gejalaDipilih.includes("G03") && gejalaDipilih.includes("G04")) {
+        hasil = "Bercak Daun";
+        solusi = "Gunakan fungisida dan jaga kelembaban.";
+    }
+    else if (gejalaDipilih.includes("G05") && gejalaDipilih.includes("G06")) {
+        hasil = "Kresek";
+        solusi = "Gunakan bakterisida.";
+    }
+    else if (gejalaDipilih.includes("G07") && gejalaDipilih.includes("G08")) {
+        hasil = "Potong Leher";
+        solusi = "Sanitasi lahan dan fungisida.";
+    }
+    else if (gejalaDipilih.includes("G09") && gejalaDipilih.includes("G10")) {
+        hasil = "Blas";
+        solusi = "Atur jarak tanam dan fungisida.";
+    }
+    else if (gejalaDipilih.includes("G11") && gejalaDipilih.includes("G12")) {
+        hasil = "Tungro";
+        solusi = "Kendalikan wereng.";
+    }
+    else {
+        hasil = "Tidak terdeteksi";
+        solusi = "Gejala belum cukup.";
+    }
+
+    let hasilDiv = document.getElementById("hasil");
+    hasilDiv.style.display = "block";
+    hasilDiv.innerHTML = `
+        <h3>Hasil Diagnosa</h3>
+        <p><b>${hasil}</b></p>
+        <p><b>Solusi:</b> ${solusi}</p>
+    `;
+}
+</script>
+
+</body>
+</html>
